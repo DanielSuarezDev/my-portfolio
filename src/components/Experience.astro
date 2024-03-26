@@ -1,0 +1,46 @@
+---
+import ExperienceItem from "./ExperienceItem.astro"
+const EXPERIENCIE = [
+  {
+    date: "Actualmente...",
+    title: "FullStack Developer",
+    company: "BrangerBriz",
+    description:
+      "Desarrollo de aplicaciones web para empresas y particulares. Creación de una plataforma de gestión de eccomerce con Nextjs, Node.js y MongoDB.",
+    link: "https://brangerbriz.com/",
+  },
+  {
+    date: "",
+    title: "FullStack Developer & Co-Founder",
+    company: "Jausme",
+    description:
+      "Cree una aplicación mobile para Android y iOS con React Native y Node.js para la digitalización de propiedades horizontales.",
+    link: "https://jausme.com/",
+  },
+  {
+    date: "Marzo 2023",
+    title: "FullStack Developer",
+    company: "GoGo",
+    description:
+      "Desarrollé una aplicación Movile con React Native y Node.js para la gestión de vehículos y su mantenimiento impactando a más de 1000 usuarios.",
+  },
+  {
+    date: "Mayo 2021",
+    title: "Frontend Developer",
+    company: "Treinta",
+    description:
+      "Empecé desde los inicios en los equipos hasta convertir en una super empresa de alto crecimiento donde impactamos +5 Millones de usuarios.",
+    link: "https://www.treinta.co/",
+  },
+]
+---
+
+<ol class="relative mt-16">
+  {
+    EXPERIENCIE.map((experiencie) => (
+      <li class="">
+        <ExperienceItem {...experiencie} />
+      </li>
+    ))
+  }
+</ol>
