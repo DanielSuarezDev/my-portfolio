@@ -4,12 +4,19 @@ import NextJS from "./icons/NextJS.astro"
 import Tailwind from "./icons/Tailwind.astro"
 import Link from "./icons/Link.astro"
 import LinkButton from "./LinkButton.astro"
+import ReactNative from "./icons/ReactNative.astro"
+import Vite from "./icons/Vite.astro"
 
 const TAGS = {
+  VITE: {
+    name: "Vite",
+    class: "bg-black text-white",
+    icon: Vite,
+  },
   REACT_NATIVE : {
     name: "React Native",
     class: "bg-[#61DAFB] text-black",
-    // icon: ReactNative,
+    icon: ReactNative,
   },
   NEXT: {
     name: "Next.js",
@@ -29,7 +36,7 @@ const PROJECTS = [
       "Plataforma para la gestión de comunidades de vecinos. Creada con Vite, React , Tailwind CSS y React Native para la app móvil, con más de 100K usuarios activos.",
     link: "https://jausme.com/",
     image: "/projects/jausme.png",
-    tags: [TAGS.NEXT, TAGS.TAILWIND],
+    tags: [TAGS.TAILWIND, TAGS.REACT_NATIVE, TAGS.VITE],
   },
   {
     title: "SpendWiser - Gasta Inteligentemente",
@@ -39,6 +46,14 @@ const PROJECTS = [
     image: "/projects/spendWiser.png",
     tags: [TAGS.NEXT, TAGS.TAILWIND],
     github: "https://github.com/DanielSuarezDev/SpendWiser",
+  },
+  {
+    title: "GoGo - Dale vida a tu vehículo",
+    description:
+      "App para la gestión de mantenimientos de vehículos donde ha impactado a mas de 600K taxistas y expandiendose a vehículos particulares. Creada con React Native y Tailwind CSS.",
+    link: "https://play.google.com/store/apps/details?id=com.gogo.beatlab&pli=1",
+    image: "/projects/gogo.png",
+    tags: [TAGS.VITE, TAGS.TAILWIND, TAGS.REACT_NATIVE],
   },
 ]
 ---
