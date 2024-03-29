@@ -10,6 +10,8 @@ import Projects from "@/components/Projects.astro"
 import SectionContainer from "@/components/SectionContainer.astro"
 import Hero from "@/components/Hero.astro"
 import  SpeedInsights  from "@vercel/speed-insights/astro"
+import BadgeFloat from "@/components/BadgeFloat.astro"
+import Banner from "@/components/Banner.astro"
 ---
 
 <Layout
@@ -17,6 +19,11 @@ import  SpeedInsights  from "@vercel/speed-insights/astro"
   description="Contrata a danielsuarezdev para crear tu aplicación web o móvil. Desarrollador Web. Especializado en crear aplicaciones únicas."
 >
   <main class="px-4">
+    <Banner
+    btnId="dismiss-button"
+    btnTitle="Entra a mi Blog"
+    url="/blog"
+  />
     <SectionContainer class="py-16 md:py-36">
       <Hero>
       </slot>
