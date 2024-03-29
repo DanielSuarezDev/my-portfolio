@@ -17,13 +17,13 @@ console.log(allPosts[0].frontmatter);
       <h2 class="text-2xl font-bold mb-8">
         Aprende sobre desarrollo web en mi blog.
       </h2>
-      <ul>
+      <div class="flex gap-2 flex-wrap">
         {
           allPosts.map((post) => (
             <BlogPost url={post.url} data={post.frontmatter} />
           ))
         }
-      </ul>
+      </div >
     </SectionContainer>
   </main>
 </Layout>
