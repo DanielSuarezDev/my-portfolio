@@ -5,7 +5,7 @@ pubDate: 2023-03-01
 description: "React Native es una popular plataforma de desarrollo de aplicaciones..."
 author: "Daniel Suarez Dev"
 image:
-  url: "/src/assets/images/css-stylesheets.webp"
+  url: "/images/css-stylesheets.webp"
   alt: "react native img"
 tags: ["react native", "styles"]
 ---

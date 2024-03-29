@@ -5,7 +5,7 @@ pubDate: 2024-01-01
 description: "Cuando empecé en el mundo del desarrollo me tope con esto..."
 author: "Daniel Suarez Dev"
 image:
-  url: "/src/assets/images/amend-hero.webp"
+  url: "/images/amend-hero.webp"
   alt: "The Astro logo with the word One."
 tags: ["git"]
 ---

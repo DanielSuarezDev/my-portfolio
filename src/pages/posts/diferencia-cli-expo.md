@@ -5,7 +5,7 @@ pubDate: 2022-07-01
 description: "Si estás empezando en RN es común tener esta duda..."
 author: "Daniel Suarez Dev"
 image:
-  url: "/src/assets/images/cli-espo-react-native.webp"
+  url: "/images/cli-espo-react-native.webp"
   alt: "react native img"
 tags: ["react native"]
 ---
