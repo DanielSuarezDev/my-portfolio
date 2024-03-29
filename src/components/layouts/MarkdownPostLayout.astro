@@ -1,22 +1,37 @@
 ---
+// Asegúrate de tener las fuentes y estilos de Tailwind adecuados importados
 import Layout from "@/layouts/Layout.astro";
 import SectionContainer from "../SectionContainer.astro";
-// import BaseLayout from "./BaseLayout.astro";
+import Badge from "../Badge.astro";
 const { frontmatter } = Astro.props;
 ---
 
-<!-- <BaseLayout pageTitle={frontmatter.title}> -->
 <Layout
   title="Desarrollador Web | Daniel Suarez"
   description="Desarrollador Web especializado en React, Next.js, GraphQL"
 >
-<SectionContainer class="py-16 md:py-36">
+  <SectionContainer class="py-16 md:py-36 leading-9">
+    <img
+      src={frontmatter.image.url}
+      class="rounded-xl mb-3 shadow-lg"
+      alt={frontmatter.image.alt}
+    />
+    
+    <h1 class="text-4xl font-bold my-4">{frontmatter.title}</h1>
 
-  <p>{frontmatter.pubDate.slice(0, 10)}</p>
-  <p><em>{frontmatter.description}</em></p>
-  <p>Written by: {frontmatter.author}</p>
-  <img src={frontmatter.image.url} width="300" alt={frontmatter.image.alt} />
-  <slot />
-  <!-- </BaseLayout> -->
-</SectionContainer>
+    <p class="text-gray-700 mb-2">🗓️ {frontmatter.pubDate.slice(0, 10)}</p>
+    <p class="text-gray-700 mb-4">✍️ Written by: {frontmatter.author}</p>
+
+    <div class="flex flex-wrap gap-2 mb-6">
+      {frontmatter.tags.map((tag: string) => (
+        <Badge class="bg-green-700 text-white py-1 px-2 rounded-full shadow">
+          #{tag}
+        </Badge>
+      ))}
+    </div>
+    
+    <article class="prose max-w-none">
+      <slot />
+    </article>
+  </SectionContainer>
 </Layout>

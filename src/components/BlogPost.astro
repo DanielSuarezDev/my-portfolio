@@ -5,7 +5,7 @@ const { data, url } = Astro.props;
 ---
 
 <div class="max-w-sm rounded overflow-hidden shadow-lg">
-  <div class="text-left relative flex flex-col items-center col-span-6 row-span-5 gap-8 transition duration-500 ease-in-out transform shadow-xl overflow-clip rounded-xl sm:rounded-xl md:group-hover:-translate-y-1 md:group-hover:shadow-2xl lg:border lg:border-gray-800 lg:hover:border-gray-100 lg:hover:bg-gray-100/50 dark:lg:hover:bg-gray-700/50">
+  <div class="text-left relative flex flex-col items-center col-span-6 row-span-5 gap-8 transition duration-500 ease-in-out transform shadow-xl overflow-clip rounded-xl sm:rounded-xl md:group-hover:-translate-y-1 md:group-hover:shadow-2xl lg:border lg:border-gray-500 lg:hover:border-gray-100 lg:hover:bg-gray-100/50 dark:lg:hover:bg-gray-700/50">
   <img alt="image" class="object-cover object-top w-full h-56 transition duration-500 sm:h-full md:scale-110 md:group-hover:scale-105" loading="lazy" src={data.image.url} />
 
   <!-- <img class="w-full p-2" src={data.image.url} alt={data.image.alt} /> -->
@@ -17,7 +17,7 @@ const { data, url } = Astro.props;
     <span>{data.pubDate.split('T')[0]}</span>
     <div class="flex gap-2 w-full mt-2">
     {
-      data.tags.map((tag) => (
+      data.tags.map((tag: string) => (
           <Badge>{tag}</Badge>
           ))
         }

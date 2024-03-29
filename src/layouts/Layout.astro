@@ -13,6 +13,10 @@ interface Props {
 const { description, title } = Astro.props
 ---
 
+
+
+
+
 <!doctype html>
 <html lang="es">
   <head>
@@ -24,6 +28,8 @@ const { description, title } = Astro.props
     <title>{title}</title>
     <ViewTransitions />
   </head>
+  
+  <!-- El resto de tu layout o página continúa aquí -->
 
   <body class="relative text-black dark:text-white">
     <div
@@ -35,6 +41,11 @@ const { description, title } = Astro.props
     <Header />
     <slot />
     <Footer />
+
+    <script>
+      import "../scripts/menu.js";
+    </script>
+      
     <style is:global>
       :root {
         color-scheme: light dark;
@@ -112,4 +123,6 @@ const { description, title } = Astro.props
       }
     </style>
   </body>
+
+  
 </html>
