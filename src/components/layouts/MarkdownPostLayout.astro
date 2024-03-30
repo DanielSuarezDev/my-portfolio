@@ -10,7 +10,7 @@ const { frontmatter } = Astro.props;
   title="Desarrollador Web | Daniel Suarez"
   description="Desarrollador Web especializado en React, Next.js, GraphQL"
 >
-<SectionContainer class="py-16 md:py-36 leading-9">
+<SectionContainer class="px-6 py-16 md:py-36 leading-9">
     <div>
       <a href="/blog">{"<"} volver </a>
     </div>
@@ -23,7 +23,7 @@ const { frontmatter } = Astro.props;
     <h1 class="text-4xl font-bold my-4">{frontmatter.title}</h1>
 
     <p class="text-gray-700 mb-2">🗓️ {frontmatter.pubDate.slice(0, 10)}</p>
-    <p class="text-gray-700 mb-4">✍️ Written by: {frontmatter.author}</p>
+    <p class="text-gray-700 mb-4">✍️ Autor: {frontmatter.author}</p>
 
     <div class="flex flex-wrap gap-2 mb-6">
       {
