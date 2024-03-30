@@ -7,10 +7,11 @@ const { frontmatter } = Astro.props;
 ---
 
 <Layout
-  title="Desarrollador Web | Daniel Suarez"
-  description="Desarrollador Web especializado en React, Next.js, GraphQL"
+  title={frontmatter.title}
+  description={frontmatter.description}
+  image={frontmatter.image.url}
 >
-<SectionContainer class="px-6 py-16 md:py-36 leading-9">
+  <SectionContainer class="px-6 py-16 md:py-36 leading-9">
     <div>
       <a href="/blog">{"<"} volver </a>
     </div>
@@ -35,8 +36,6 @@ const { frontmatter } = Astro.props;
       }
     </div>
 
-    
-      <slot />
-    
+    <slot />
   </SectionContainer>
 </Layout>
