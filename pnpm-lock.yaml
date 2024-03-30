@@ -26,12 +26,20 @@ dependencies:
   astro-robots-txt:
     specifier: 1.0.0
     version: 1.0.0
+  astro-seo:
+    specifier: ^0.8.3
+    version: 0.8.3(typescript@5.3.3)
   tailwindcss:
     specifier: 3.4.1
     version: 3.4.1
   typescript:
     specifier: 5.3.3
     version: 5.3.3
+
+devDependencies:
+  husky:
+    specifier: ^9.0.11
+    version: 9.0.11
 
 packages:
 
@@ -1077,6 +1085,16 @@ packages:
       zod: 3.22.4
     dev: false
 
+  /astro-seo@0.8.3(typescript@5.3.3):
+    resolution: {integrity: sha512-gQeEh0U2yyVM0iyU8DTORK6hXMy5WH2wufrkUuNOKjI3LnYLniqgDxm1LZPQDuD6b4OHabVOi/5L88A9POCcCQ==}
+    dependencies:
+      '@astrojs/check': 0.5.6(typescript@5.3.3)
+    transitivePeerDependencies:
+      - prettier
+      - prettier-plugin-astro
+      - typescript
+    dev: false
+
   /astro@4.4.5(typescript@5.3.3):
     resolution: {integrity: sha512-ccat42P5qr281JExywVsK/BLeKgwSL+oLxJP195s4Wvj3nL32djw+WNJNctuDDTJ5XWgvPdHZjBtSDNO5OgagQ==}
     engines: {node: '>=18.14.1', npm: '>=6.14.0'}
@@ -1974,6 +1992,12 @@ packages:
     resolution: {integrity: sha512-AXcZb6vzzrFAUE61HnN4mpLqd/cSIwNQjtNWR0euPm6y0iqx3G4gOXaIDdtdDwZmhwe82LA6+zinmW4UBWVePQ==}
     engines: {node: '>=16.17.0'}
     dev: false
+
+  /husky@9.0.11:
+    resolution: {integrity: sha512-AB6lFlbwwyIqMdHYhwPe+kjOC3Oc5P3nThEoW/AaO2BX3vJDjWPFxYLxokUZOo6RNX20He3AaT8sESs9NJcmEw==}
+    engines: {node: '>=18'}
+    hasBin: true
+    dev: true
 
   /ieee754@1.2.1:
     resolution: {integrity: sha512-dcyqhDvX1C46lXZcVqCpK+FtMRQVdIMN6/Df5js2zouUsqG7I6sFxitIC+7KYK29KdXOLHdu9zL4sFnoVQnqaA==}
