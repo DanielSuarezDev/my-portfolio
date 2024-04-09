@@ -1052,7 +1052,7 @@ const $$Image = createComponent(async ($$result, $$props, $$slots) => {
     additionalAttributes.srcset = image.srcSet.attribute;
   }
   return renderTemplate`${maybeRenderHead()}<img${addAttribute(image.src, "src")}${spreadAttributes(additionalAttributes)}${spreadAttributes(image.attributes)}>`;
-}, "/home/danielsuarezdev/Documents/projects/frontend/porfolio.dev/node_modules/.pnpm/astro@4.4.5_typescript@5.3.3/node_modules/astro/components/Image.astro", void 0);
+}, "/home/danielsuarezdev/Documents/projects/frontend/my-portfolio/node_modules/.pnpm/astro@4.4.5_typescript@5.3.3/node_modules/astro/components/Image.astro", void 0);
 
 const $$Astro = createAstro("https://porfolio.dev/");
 const $$Picture = createComponent(async ($$result, $$props, $$slots) => {
@@ -1092,10 +1092,10 @@ const $$Picture = createComponent(async ($$result, $$props, $$slots) => {
     const srcsetAttribute = props.densities || !props.densities && !props.widths ? `${image.src}${image.srcSet.values.length > 0 ? ", " + image.srcSet.attribute : ""}` : image.srcSet.attribute;
     return renderTemplate`<source${addAttribute(srcsetAttribute, "srcset")}${addAttribute("image/" + image.options.format, "type")}${spreadAttributes(sourceAdditionalAttributes)}>`;
   })} <img${addAttribute(fallbackImage.src, "src")}${spreadAttributes(imgAdditionalAttributes)}${spreadAttributes(fallbackImage.attributes)}> </picture>`;
-}, "/home/danielsuarezdev/Documents/projects/frontend/porfolio.dev/node_modules/.pnpm/astro@4.4.5_typescript@5.3.3/node_modules/astro/components/Picture.astro", void 0);
+}, "/home/danielsuarezdev/Documents/projects/frontend/my-portfolio/node_modules/.pnpm/astro@4.4.5_typescript@5.3.3/node_modules/astro/components/Picture.astro", void 0);
 
 const imageConfig = {"service":{"entrypoint":"astro/assets/services/sharp","config":{}},"domains":[],"remotePatterns":[]};
-					new URL("file:///home/danielsuarezdev/Documents/projects/frontend/porfolio.dev/.vercel/output/static/");
+					new URL("file:///home/danielsuarezdev/Documents/projects/frontend/my-portfolio/.vercel/output/static/");
 					const getImage = async (options) => await getImage$1(options, imageConfig);
 
 async function loadRemoteImage(src) {

@@ -36,6 +36,14 @@
 			"dest": "_render"
 		},
 		{
+			"src": "^\\/posts\\/instalar-vscode\\/?$",
+			"dest": "_render"
+		},
+		{
+			"src": "^\\/posts\\/introduccion-control-versiones\\/?$",
+			"dest": "_render"
+		},
+		{
 			"src": "^\\/posts\\/usando-amend\\/?$",
 			"dest": "_render"
 		},
