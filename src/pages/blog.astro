@@ -11,7 +11,6 @@ const sortedPosts = allPosts.sort((a, b) => {
   //@ts-ignore
   return new Date(b.frontmatter.pubDate) - new Date(a.frontmatter.pubDate);
 });
-
 ---
 
 <Layout
@@ -30,7 +29,7 @@ const sortedPosts = allPosts.sort((a, b) => {
             <BlogPost key={post.url} url={post.url} data={post.frontmatter} />
           ))
         }
-      </div >
+      </div>
     </SectionContainer>
   </main>
 </Layout>
