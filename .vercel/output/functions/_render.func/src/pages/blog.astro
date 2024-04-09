@@ -1,0 +1,35 @@
+---
+import BlogPost from "../components/BlogPost.astro";
+import Layout from "../layouts/Layout.astro";
+import SectionContainer from "@/components/SectionContainer.astro";
+const pageTitle = "My Astro Learning Blog";
+const allPosts = await Astro.glob("../pages/posts/*.md");
+
+console.log(allPosts[0].frontmatter);
+
+const sortedPosts = allPosts.sort((a, b) => {
+  //@ts-ignore
+  return new Date(b.frontmatter.pubDate) - new Date(a.frontmatter.pubDate);
+});
+---
+
+<Layout
+  title="blog"
+  description="Aprende sobre desarrollo web y mobile en mi blog. Aquí encontrarás tutoriales, tips y trucos para mejorar tus habilidades como desarrollador web."
+  image="/images/logo.jpg"
+>
+  <main class="px-4">
+    <SectionContainer class="py-16 md:py-36">
+      <h2 class="text-2xl font-bold mb-8">
+        Aprende sobre desarrollo web en mi blog.
+      </h2>
+      <div class="flex gap-2 flex-wrap">
+        {
+          sortedPosts.map((post) => (
+            <BlogPost key={post.url} url={post.url} data={post.frontmatter} />
+          ))
+        }
+      </div>
+    </SectionContainer>
+  </main>
+</Layout>
