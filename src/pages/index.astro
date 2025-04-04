@@ -1,17 +1,19 @@
 ---
-import Layout from "@/layouts/Layout.astro"
+import Layout from "@/layouts/Layout.astro";
 
-import AboutMe from "@/components/AboutMe.astro"
-import Briefcase from "@/components/icons/Briefcase.astro"
-import CodeIcon from "@/components/icons/Code.astro"
-import Experience from "@/components/Experience.astro"
-import ProfileCheck from "@/components/icons/ProfileCheck.astro"
-import Projects from "@/components/Projects.astro"
-import SectionContainer from "@/components/SectionContainer.astro"
-import Hero from "@/components/Hero.astro"
-import  SpeedInsights  from "@vercel/speed-insights/astro"
-import BadgeFloat from "@/components/BadgeFloat.astro"
-import Banner from "@/components/Banner.astro"
+import AboutMe from "@/components/AboutMe.astro";
+import Briefcase from "@/components/icons/Briefcase.astro";
+import CodeIcon from "@/components/icons/Code.astro";
+import Experience from "@/components/Experience.astro";
+import ProfileCheck from "@/components/icons/ProfileCheck.astro";
+import Projects from "@/components/Projects.astro";
+import SectionContainer from "@/components/SectionContainer.astro";
+import Hero from "@/components/Hero.astro";
+import SpeedInsights from "@vercel/speed-insights/astro";
+import BadgeFloat from "@/components/BadgeFloat.astro";
+import Banner from "@/components/Banner.astro";
+import SectionBlog from "@/components/SectionBlog.astro";
+import SuscriptionNewsletter from "@/components/SuscriptionNewsletter.astro";
 ---
 
 <Layout
@@ -20,18 +22,16 @@ import Banner from "@/components/Banner.astro"
   image="/images/logo.jpg"
 >
   <main class="px-4">
-    <Banner
-    btnId="dismiss-button"
-    btnTitle="Entra a mi Blog"
-    url="/blog"
-  />
-  
     <SectionContainer class="py-16 md:py-36">
-      <Hero>
-      </slot>
-    </Hero>
+      <Hero />
     </SectionContainer>
-    <div class="space-y-24">
+  </main>
+
+  <div class="space-y-24">
+    <SectionContainer id="proyectos">
+      <Projects />
+    </SectionContainer>
+
     <SectionContainer id="experiencia">
       <h2
         class="flex items-center mb-6 text-3xl font-semibold gap-x-3 text-black/80 dark:text-white"
@@ -43,13 +43,11 @@ import Banner from "@/components/Banner.astro"
     </SectionContainer>
 
     <SectionContainer id="proyectos">
-      <h2
-        class="flex items-center mb-6 text-3xl font-semibold gap-x-3 text-black/80 dark:text-white"
-      >
-        <CodeIcon class="size-7" />
-        Proyectos
-      </h2>
-      <Projects />
+      <SectionBlog />
+    </SectionContainer>
+
+    <SectionContainer id="sobre-mi">
+      <SuscriptionNewsletter />
     </SectionContainer>
 
     <SectionContainer id="sobre-mi">
@@ -57,11 +55,10 @@ import Banner from "@/components/Banner.astro"
         class="flex items-center mb-6 text-3xl font-semibold gap-x-8 text-black/80 dark:text-white"
       >
         <ProfileCheck class="size-8" />
-        Sobre mí
+        Un poco más sobre mi
       </h2>
       <AboutMe />
     </SectionContainer>
   </div>
   <SpeedInsights />
-  </main>
 </Layout>

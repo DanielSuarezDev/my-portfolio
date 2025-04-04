@@ -1,0 +1,240 @@
+---
+//@ts-ignore
+import { format } from "date-fns";
+//@ts-ignore
+import { es } from "date-fns/locale";
+
+interface BlogPost {
+  id: string;
+  title: string;
+  excerpt: string;
+  date: string;
+  readTime: string;
+  tags: string[];
+  image: {
+    url: string;
+    alt: string;
+  };
+  featured: boolean;
+}
+
+// Cargar todos los posts del blog
+const posts = await Astro.glob("../pages/posts/*.md");
+
+// Procesar los posts
+const blogPosts: BlogPost[] = posts.map((post) => {
+  // Extraer la primera imagen del contenido del post si no hay imagen en el frontmatter
+  const contentImage = post.rawContent().match(/!\[.*?\]\((.*?)\)/);
+  const defaultImage = {
+    url: "/images/laptop-person.jpg",
+    alt: "Imagen por defecto",
+  };
+
+  return {
+    id: post.url?.split("/").pop()?.replace(".md", "") || "",
+    title: post.frontmatter.title || "Sin título",
+    excerpt: post.frontmatter.description || "Descripción no disponible",
+    date: format(
+      new Date(post.frontmatter.pubDate || new Date()),
+      "MMM d, yyyy",
+      { locale: es }
+    ),
+    readTime: `${Math.ceil(Number(post.frontmatter.readTime) || 5)} minutos de lectura`,
+    tags: post.frontmatter.tags || [],
+    image:
+      post.frontmatter.image ||
+      (contentImage
+        ? { url: contentImage[1], alt: post.frontmatter.title }
+        : defaultImage),
+    featured: post.frontmatter.featured || false,
+  };
+});
+
+// Ordenar posts por fecha (más recientes primero)
+blogPosts.sort(
+  (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
+);
+
+const featuredPost = blogPosts.find((post) => post.featured) || blogPosts[0];
+const regularPosts = blogPosts.filter((post) => post !== featuredPost);
+---
+
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Mi Blog</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body class="font-sans max-w-7xl mx-auto px-4 py-8">
+    <main>
+      <!-- Header Section -->
+      <header class="md:text-center mb-6 sm:mb-8 lg:mb-12">
+        <h1 class="text-3xl sm:text-4xl font-bold text-gray-800 mb-1 sm:mb-2">
+          Mi Blog
+        </h1>
+        <p class="text-sm sm:text-base text-gray-600 max-w-2xl mx-auto px-2">
+          Aquí encontrarás los últimos artículos y noticias sobre tecnología,
+          desarrollo web, aplicaciones móviles y mucho más.
+        </p>
+      </header>
+
+      <!-- Featured Post Section -->
+      {
+        featuredPost && (
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6 lg:gap-8 mb-8 sm:mb-12">
+            <div class="bg-white rounded-lg p-4 sm:p-6 lg:p-8 border border-gray-100 shadow-sm flex flex-col justify-between">
+              <div>
+                <div class="flex flex-wrap items-center gap-2 sm:gap-4 text-xs sm:text-sm text-gray-500 mb-2">
+                  <div class="flex items-center">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      class="h-4 w-4 mr-1"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
+                      />
+                    </svg>
+                    {featuredPost.date}
+                  </div>
+                  <div class="flex items-center">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      class="h-4 w-4 mr-1"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
+                      />
+                    </svg>
+                    {featuredPost.readTime}
+                  </div>
+                </div>
+                <h2 class="text-xl sm:text-2xl font-bold text-gray-800 mb-2 sm:mb-3">
+                  {featuredPost.title}
+                </h2>
+                <p class="text-sm sm:text-base text-gray-600 mb-4 sm:mb-6">
+                  {featuredPost.excerpt}
+                </p>
+                <div class="flex flex-wrap gap-1 sm:gap-2 mb-4 sm:mb-6">
+                  {featuredPost.tags.map((tag: string) => (
+                    <span class="text-xs px-2 sm:px-3 py-1 bg-gray-100 text-gray-800 rounded-full">
+                      {tag}
+                    </span>
+                  ))}
+                </div>
+              </div>
+              <a
+                href={`/posts/${featuredPost.id}`}
+                class="text-purple-600 border border-purple-600 rounded-full px-4 sm:px-6 py-1.5 sm:py-2 text-xs sm:text-sm font-medium inline-block hover:bg-purple-600 hover:text-white transition-colors w-fit"
+              >
+                Read Full Blog
+              </a>
+            </div>
+            <div class="rounded-lg overflow-hidden h-64 sm:h-auto">
+              <img
+                src={featuredPost.image.url}
+                alt={featuredPost.image.alt}
+                class="w-full h-full object-cover"
+                onerror="this.src='/images/laptop-person.jpg';this.alt='Imagen por defecto'"
+              />
+            </div>
+          </div>
+        )
+      }
+
+      <!-- Regular Posts Grid -->
+      <div
+        class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6"
+      >
+        {
+          regularPosts.map((post) => (
+            <div class="bg-white rounded-lg border border-gray-100 shadow-sm overflow-hidden flex flex-col">
+              <img
+                src={post.image.url}
+                alt={post.image.alt}
+                class="w-full h-40 sm:h-48 object-cover"
+                onerror="this.src='/images/laptop-person.jpg';this.alt='Imagen por defecto'"
+              />
+              <div class="p-4 sm:p-6 flex flex-col flex-grow">
+                <div class="flex flex-wrap items-center gap-2 sm:gap-4 text-xs sm:text-sm text-gray-500 mb-2">
+                  <div class="flex items-center">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      class="h-4 w-4 mr-1"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
+                      />
+                    </svg>
+                    {post.date}
+                  </div>
+                  <div class="flex items-center">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      class="h-4 w-4 mr-1"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
+                      />
+                    </svg>
+                    {post.readTime}
+                  </div>
+                </div>
+                <h3 class="text-lg sm:text-xl font-bold text-gray-800 mb-2">
+                  {post.title}
+                </h3>
+                <p class="text-sm text-gray-600 mb-3 sm:mb-4">{post.excerpt}</p>
+                <div class="flex flex-wrap gap-1 sm:gap-2 mb-4">
+                  {post.tags.map((tag: string) => (
+                    <span class="text-xs px-2 sm:px-3 py-0.5 sm:py-1 bg-gray-100 text-gray-800 rounded-full">
+                      {tag}
+                    </span>
+                  ))}
+                </div>
+                <a
+                  href={`/posts/${post.id}`}
+                  class="text-purple-600 border border-purple-600 rounded-full px-4 sm:px-6 py-1.5 sm:py-2 text-xs sm:text-sm font-medium inline-block hover:bg-purple-600 hover:text-white transition-colors w-fit mt-auto"
+                >
+                  Read Full Blog
+                </a>
+              </div>
+            </div>
+          ))
+        }
+      </div>
+    </main>
+  </body>
+</html>
+
+<style>
+  body {
+    font-family: "Inter", sans-serif;
+  }
+</style>
