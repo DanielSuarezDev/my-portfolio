@@ -1,0 +1,298 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import ProductCard from "../../components/store/ProductCard.astro";
+import ShoppingCart from "../../components/store/ShoppingCart.astro";
+
+// Interfaz para el tipo de imágenes por color
+interface ColorImages {
+  [key: string]: string;
+}
+
+// Datos de ejemplo de productos (camisetas)
+const products = [
+  {
+    id: "shirt-1",
+    name: "Classic Cotton Tee",
+    price: 24.99,
+    colors: ["Negro", "Blanco", "Gris"],
+    sizes: ["S", "M", "L", "XL", "XXL"],
+    // Imágenes específicas por color
+    images: {
+      "Negro": "/images/products/shirt-1-black.jpeg",
+      "Blanco": "/images/products/shirt-1-white.jpeg",
+      "Gris": "/images/products/shirt-1-gray.jpeg"
+    } as ColorImages,
+    // Imagen predeterminada
+    image: "/images/products/shirt-1.jpeg"
+  },
+  {
+    id: "shirt-2",
+    name: "Vintage Graphic Tee",
+    price: 29.99,
+    colors: ["Negro", "Blanco", "Rojo"],
+    sizes: ["S", "M", "L", "XL"],
+    // Imágenes específicas por color
+    images: {
+      "Negro": "/images/products/shirt-2-black.jpg",
+      "Blanco": "/images/products/shirt-2-white.jpg",
+      "Rojo": "/images/products/shirt-2-red.jpg"
+    } as ColorImages,
+    image: "/images/products/shirt-2.jpg"
+  },
+  {
+    id: "shirt-3",
+    name: "Premium Fitted Tee",
+    price: 34.99,
+    colors: ["Negro", "Blanco", "Azul"],
+    sizes: ["S", "M", "L", "XL", "XXL"],
+    // Imágenes específicas por color
+    images: {
+      "Negro": "/images/products/shirt-3-black.jpg",
+      "Blanco": "/images/products/shirt-3-white.jpg",
+      "Azul": "/images/products/shirt-3-blue.jpg"
+    } as ColorImages,
+    image: "/images/products/shirt-3.jpg"
+  }
+];
+---
+
+<Layout 
+  title="Tienda | Daniel Suarez" 
+  description="Encuentra las mejores camisetas para desarrolladores en mi tienda online."
+  image="/images/store-preview.jpg"
+>
+  <main class="container mx-auto px-4 py-32">
+    <div class="flex flex-col lg:flex-row gap-8">
+      <!-- Productos -->
+      <section class="w-full lg:w-3/4">
+        <h1 class="text-3xl font-bold mb-8">Tienda</h1>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
+          {products.map(product => (
+            <ProductCard 
+              id={product.id}
+              name={product.name}
+              price={product.price}
+              colors={product.colors}
+              sizes={product.sizes}
+              image={product.image}
+              images={product.images}
+            />
+          ))}
+        </div>
+      </section>
+      
+      <!-- Carrito de compras -->
+      <section class="w-full lg:w-1/4 sticky top-32 h-fit">
+        <ShoppingCart />
+      </section>
+    </div>
+  </main>
+</Layout>
+
+<script>
+  // Este script se ejecutará en el cliente
+  document.addEventListener('astro:page-load', () => {
+    // Definir la interfaz para los elementos del carrito
+    interface CartItem {
+      id: string;
+      name: string;
+      price: number;
+      color: string;
+      size: string;
+      quantity: number;
+    }
+
+    // Inicializar el carrito desde localStorage o como un array vacío
+    let cart: CartItem[] = JSON.parse(localStorage.getItem('cart') || '[]');
+    
+    // Actualizar el contador del carrito
+    const updateCartCount = (): void => {
+      const cartCountElements = document.querySelectorAll('.cart-count');
+      const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+      cartCountElements.forEach(el => {
+        el.textContent = totalItems.toString();
+      });
+    };
+    
+    // Actualizar el DOM con el contenido del carrito
+    const updateCartDisplay = (): void => {
+      const cartItemsElement = document.getElementById('cart-items');
+      const emptyCartMessage = document.getElementById('empty-cart-message');
+      const cartTotalElement = document.getElementById('cart-total');
+      const cartTotalContainer = document.getElementById('cart-total-container');
+      const whatsappButtonElement = document.getElementById('whatsapp-button');
+      
+      if (!cartItemsElement) return;
+      
+      // Limpiar el contenedor de items
+      cartItemsElement.innerHTML = '';
+      
+      if (cart.length === 0) {
+        if (emptyCartMessage) emptyCartMessage.classList.remove('hidden');
+        if (cartTotalContainer) cartTotalContainer.classList.add('hidden');
+        if (whatsappButtonElement) whatsappButtonElement.classList.add('hidden');
+      } else {
+        if (emptyCartMessage) emptyCartMessage.classList.add('hidden');
+        if (cartTotalContainer) cartTotalContainer.classList.remove('hidden');
+        if (whatsappButtonElement) whatsappButtonElement.classList.remove('hidden');
+        
+        // Calcular el total
+        const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+        if (cartTotalElement) cartTotalElement.textContent = `$${total.toFixed(2)}`;
+        
+        // Generar la lista de productos
+        cart.forEach(item => {
+          const itemElement = document.createElement('div');
+          itemElement.className = 'flex justify-between items-center py-2 border-b';
+          itemElement.innerHTML = `
+            <div>
+              <h4 class="font-medium">${item.name}</h4>
+              <p class="text-sm text-gray-600 dark:text-gray-400">Talla: ${item.size} | Color: ${item.color}</p>
+              <div class="flex items-center mt-1">
+                <button class="decrease-quantity px-2 text-sm" data-id="${item.id}" data-color="${item.color}" data-size="${item.size}">-</button>
+                <span class="mx-2">${item.quantity}</span>
+                <button class="increase-quantity px-2 text-sm" data-id="${item.id}" data-color="${item.color}" data-size="${item.size}">+</button>
+              </div>
+            </div>
+            <div class="flex items-center">
+              <span class="mr-3">$${(item.price * item.quantity).toFixed(2)}</span>
+              <button class="remove-item text-red-500" data-id="${item.id}" data-color="${item.color}" data-size="${item.size}">×</button>
+            </div>
+          `;
+          cartItemsElement.appendChild(itemElement);
+        });
+        
+        // Actualizar el enlace de WhatsApp
+        const whatsappButtonAnchor = document.getElementById('whatsapp-button') as HTMLAnchorElement;
+        if (whatsappButtonAnchor) {
+          const productList = cart.map(item => `${item.quantity}x ${item.name} (${item.color}, ${item.size})`).join(', ');
+          const message = `Hola estoy interesado en estos productos: ${productList}`;
+          const encodedMessage = encodeURIComponent(message);
+          whatsappButtonAnchor.href = `https://wa.me/573126340605?text=${encodedMessage}`;
+        }
+      }
+      
+      // Añadir event listeners a los botones
+      document.querySelectorAll('.remove-item').forEach(button => {
+        button.addEventListener('click', (e) => {
+          const target = e.currentTarget as HTMLElement;
+          const id = target.dataset.id;
+          const color = target.dataset.color;
+          const size = target.dataset.size;
+          
+          cart = cart.filter(item => 
+            !(item.id === id && item.color === color && item.size === size)
+          );
+          
+          localStorage.setItem('cart', JSON.stringify(cart));
+          updateCartCount();
+          updateCartDisplay();
+        });
+      });
+      
+      document.querySelectorAll('.decrease-quantity').forEach(button => {
+        button.addEventListener('click', (e) => {
+          const target = e.currentTarget as HTMLElement;
+          const id = target.dataset.id;
+          const color = target.dataset.color;
+          const size = target.dataset.size;
+          
+          const itemIndex = cart.findIndex(item => 
+            item.id === id && item.color === color && item.size === size
+          );
+          
+          if (itemIndex !== -1) {
+            if (cart[itemIndex].quantity > 1) {
+              cart[itemIndex].quantity--;
+            } else {
+              cart.splice(itemIndex, 1);
+            }
+            
+            localStorage.setItem('cart', JSON.stringify(cart));
+            updateCartCount();
+            updateCartDisplay();
+          }
+        });
+      });
+      
+      document.querySelectorAll('.increase-quantity').forEach(button => {
+        button.addEventListener('click', (e) => {
+          const target = e.currentTarget as HTMLElement;
+          const id = target.dataset.id;
+          const color = target.dataset.color;
+          const size = target.dataset.size;
+          
+          const itemIndex = cart.findIndex(item => 
+            item.id === id && item.color === color && item.size === size
+          );
+          
+          if (itemIndex !== -1) {
+            cart[itemIndex].quantity++;
+            localStorage.setItem('cart', JSON.stringify(cart));
+            updateCartDisplay();
+          }
+        });
+      });
+    };
+    
+    // Escuchar el evento personalizado add-to-cart
+    document.addEventListener('add-to-cart', (e: Event) => {
+      const event = e as CustomEvent;
+      const { id, color, size, quantity } = event.detail;
+      
+      // Buscar el producto en la lista de productos
+      const allProducts = document.querySelectorAll('.product-card');
+      let productName = '';
+      let productPrice = 0;
+      
+      allProducts.forEach(productCard => {
+        const addButton = productCard.querySelector('.add-to-cart');
+        if (addButton && addButton.getAttribute('data-id') === id) {
+          const nameElement = productCard.querySelector('.product-name');
+          const priceElement = productCard.querySelector('.product-price');
+          
+          if (nameElement && priceElement) {
+            productName = nameElement.textContent || '';
+            productPrice = parseFloat((priceElement.textContent || '0').replace('$', ''));
+          }
+        }
+      });
+      
+      if (productName && productPrice) {
+        // Buscar si el producto ya está en el carrito
+        const existingItemIndex = cart.findIndex(item => 
+          item.id === id && 
+          item.color === color && 
+          item.size === size
+        );
+        
+        if (existingItemIndex !== -1) {
+          // Incrementar cantidad si ya existe
+          cart[existingItemIndex].quantity += quantity;
+        } else {
+          // Agregar nuevo item al carrito
+          cart.push({
+            id,
+            name: productName,
+            price: productPrice,
+            color,
+            size,
+            quantity
+          });
+        }
+        
+        // Guardar en localStorage
+        localStorage.setItem('cart', JSON.stringify(cart));
+        
+        // Actualizar UI
+        updateCartCount();
+        updateCartDisplay();
+      }
+    });
+    
+    // Inicializar UI
+    updateCartCount();
+    updateCartDisplay();
+  });
+</script> 

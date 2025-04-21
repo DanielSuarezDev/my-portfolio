@@ -2,8 +2,6 @@
 import GitHub from "./icons/GitHub.astro"
 import NextJS from "./icons/NextJS.astro"
 import Tailwind from "./icons/Tailwind.astro"
-import Link from "./icons/Link.astro"
-import LinkButton from "./LinkButton.astro"
 import ReactNative from "./icons/ReactNative.astro"
 import Vite from "./icons/Vite.astro"
 
@@ -34,7 +32,7 @@ const PROJECTS = [
     title: "Pawfolio - Perfiles para mascotas",
     description:
       "Plataforma para crear perfiles para mascotas, crear recordatorios de vacunas, crear historias de vida, etc.",
-    link: "https://pawfolio.pet/",
+    link: "https://apps.apple.com/co/app/pawfolio/id6511193179",
     image: "/projects/pawfolio.png",
     tags: [TAGS.REACT_NATIVE],
     number: "01",
@@ -48,9 +46,8 @@ const PROJECTS = [
     description:
       "Registra tus ventas, gastos, inventario, tienda virtual, clientes, proveedores, todo para tu negocio",
     link: "https://trazel.app/",
-    image: "/projects/spendWiser.png",
+    image: "/projects/trazel.png",
     tags: [TAGS.REACT_NATIVE, TAGS.NEXT],
-    github: "https://github.com/DanielSuarezDev/SpendWiser",
     number: "02",
     color: "text-[#9747FF]",
     borderColor: "border-[#9747FF]",
@@ -60,7 +57,7 @@ const PROJECTS = [
   {
     title: "SpendWiser - Gestiona tu dinero",
     description:
-      "App para llevar el registro de las compras en el supermercado, crear listas de la compra, etc.",
+      "Gasta inteligentemente tu dinero al momento de mercar",
     link: "https://www.spendwiser.click/",
     image: "/projects/spendWiser.png",
     tags: [TAGS.TAILWIND, TAGS.NEXT],
@@ -76,12 +73,12 @@ const PROJECTS = [
 <section class="w-full max-w-6xl mx-auto px-4 py-12">
   <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-8">
     <div>
-      <h2 class="text-3xl font-bold text-gray-800">Mis Proyectos</h2>
+      <h2 class="text-3xl font-bold text-gray-800">✊ Mis Proyectos</h2>
       <p class="text-gray-600">Algunos de los proyectos que he creado</p>
     </div>
-    <a href="#" class="mt-6 md:mt-0 flex items-center gap-2 text-[#9747FF] border border-[#9747FF] rounded-full px-4 py-2 hover:bg-[#f9f6fc] transition-colors">
+    <!-- <a href="#" class="mt-6 md:mt-0 flex items-center gap-2 text-[#9747FF] border border-[#9747FF] rounded-full px-4 py-2 hover:bg-[#f9f6fc] transition-colors">
       Ver más <span class="inline-block transform rotate-45">↑</span>
-    </a>
+    </a> -->
   </div>
 
   <div class="space-y-8">
@@ -105,20 +102,20 @@ const PROJECTS = [
             <h3 class={`text-2xl font-bold ${project.color} mb-3`}>{project.title}</h3>
             <p class="text-gray-600 mb-6">{project.description}</p>
             
-            <div class="flex gap-2">
-              {project.github && (
+            {/* <div class="flex gap-2">
+              {project?.github && (
                 <a href={project.github} class="flex items-center gap-2 bg-black text-white px-4 py-2 rounded-full hover:bg-gray-800 transition-colors">
                   <GitHub class="size-5" />
-                  Code
+                  Código
                 </a>
               )}
-              <a href={project.link} class={`flex items-center gap-2 border ${project.borderColor} text-gray-700 px-4 py-2 rounded-full hover:bg-gray-50 transition-colors`}>
+              <a href={project.link} target="_blank" class={`flex items-center gap-2 border ${project.borderColor} text-gray-700 px-4 py-2 rounded-full hover:bg-gray-50 transition-colors`}>
                 <span class="w-4 h-4 rounded-full bg-green-500 flex items-center justify-center">
                   <span class="w-1.5 h-1.5 bg-white rounded-full"></span>
                 </span>
-                Preview
+                Ir al proyecto
               </a>
-            </div>
+            </div> */}
           </div>
           
           <div class="relative">
