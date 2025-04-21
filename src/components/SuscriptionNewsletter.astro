@@ -1,0 +1,206 @@
+---
+
+---
+
+<div class="newsletter-container">
+    <h2 class="newsletter-heading">Suscríbete a mi newsletter</h2>
+    <h2 class="newsletter-name">Daniel Suarez</h2>
+    
+    <div class="newsletter-form">
+      <div class="input-container">
+        <span class="email-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect width="20" height="16" x="2" y="4" rx="2"/>
+            <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/>
+          </svg>
+        </span>
+        <input type="email" placeholder="Ingresa tu email" class="email-input" id="emailInput" />
+    </div>
+    <button class="subscribe-button" onclick="handleSubmit(document.getElementById('emailInput').value)">Suscríbete</button>
+  </div>
+
+    <div class="metrics-container">
+      <div class="metric">
+        <span class="metric-icon trophy-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="8" r="6"/>
+            <path d="M15.477 12.89 17 22l-5-3-5 3 1.523-9.11"/>
+          </svg>
+        </span>
+        <span class="metric-text">Blog de desarrollo web</span>
+      </div>
+    </div>
+  </div>
+  
+  <script>
+    //@ts-ignore
+    import confetti from 'canvas-confetti';
+
+    const showConfetti = () => {
+      confetti({
+        particleCount: 100,
+        spread: 70,
+        origin: { y: 0.6 }
+      });
+    };
+
+    // Make handleSubmit available globally
+    //@ts-ignore
+    window.handleSubmit = async (email: string) => {
+      if (!email) {
+        alert('Por favor, ingresa un email válido');
+        return;
+      }
+      try {
+        const response = await fetch('/api/subscribe', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ email }),
+        });
+
+        if (!response.ok) {
+          throw new Error('Error en la respuesta del servidor');
+        }
+
+        const data = await response.json();
+        if (data.success) {
+          showConfetti();
+          const emailInput = document.getElementById('emailInput') as HTMLInputElement;
+          if (emailInput) {
+            emailInput.value = '';
+          }
+        } else {
+          throw new Error(data.error || 'Error al procesar la suscripción');
+        }
+      } catch (error) {
+        console.error('Error:', error);
+        alert('Hubo un error al procesar tu suscripción. Por favor, intenta de nuevo.');
+      }
+    };
+  </script>
+  
+  <style>
+    .newsletter-container {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 2rem;
+      border: 1px solid #8a56ff;
+      border-radius: 16px;
+      text-align: center;
+      background-color: white;
+    }
+  
+    .newsletter-heading {
+      font-size: 1.8rem;
+      font-weight: 600;
+      margin-bottom: 0.25rem;
+      color: #000;
+    }
+  
+    .newsletter-name {
+      font-size: 2rem;
+      font-weight: 600;
+      margin-top: 0;
+      margin-bottom: 2rem;
+      color: #8a56ff;
+    }
+  
+    .newsletter-form {
+      display: flex;
+      justify-content: center;
+      gap: 0.5rem;
+      margin-bottom: 1.5rem;
+    }
+  
+    .input-container {
+      position: relative;
+      flex-grow: 1;
+      max-width: 400px;
+    }
+  
+    .email-icon {
+      position: absolute;
+      left: 12px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: #8a56ff;
+    }
+  
+    .email-input {
+      width: 100%;
+      padding: 0.75rem 0.75rem 0.75rem 2.5rem;
+      border: 1px solid #e2e8f0;
+      border-radius: 8px;
+      font-size: 1rem;
+    }
+  
+    .subscribe-button {
+      background-color: #8a56ff;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      padding: 0.75rem 1.5rem;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background-color 0.2s;
+    }
+  
+    .subscribe-button:hover {
+      background-color: #7645e0;
+    }
+  
+    .metrics-container {
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      margin-top: 1rem;
+    }
+  
+    .metric {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+  
+    .metric-icon {
+      color: #8a56ff;
+    }
+  
+    .star-icon {
+      color: #8a56ff;
+    }
+  
+    .trophy-icon {
+      color: #8a56ff;
+    }
+  
+    .metric-text {
+      font-size: 0.9rem;
+      color: #4b5563;
+    }
+  
+    @media (max-width: 640px) {
+      .newsletter-form {
+        flex-direction: column;
+        align-items: center;
+      }
+  
+      .input-container {
+        width: 100%;
+      }
+  
+      .subscribe-button {
+        width: 100%;
+        max-width: 400px;
+      }
+  
+      .metrics-container {
+        flex-direction: column;
+        gap: 0.75rem;
+      }
+    }
+  </style>
+  
+  

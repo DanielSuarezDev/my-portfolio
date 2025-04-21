@@ -2,6 +2,7 @@
 import BlogPost from "../components/BlogPost.astro";
 import Layout from "../layouts/Layout.astro";
 import SectionContainer from "@/components/SectionContainer.astro";
+import SuscriptionNewsletter from "@/components/SuscriptionNewsletter.astro";
 const pageTitle = "My Astro Learning Blog";
 const allPosts = await Astro.glob("../pages/posts/*.md");
 
@@ -19,17 +20,18 @@ const sortedPosts = allPosts.sort((a, b) => {
   image="/images/logo.jpg"
 >
   <main class="px-4">
-    <SectionContainer class="py-16 md:py-36">
-      <h2 class="text-2xl font-bold mb-8">
-        Aprende sobre desarrollo web en mi blog.
-      </h2>
-      <div class="flex gap-2 flex-wrap">
-        {
-          sortedPosts.map((post) => (
-            <BlogPost key={post.url} url={post.url} data={post.frontmatter} />
-          ))
-        }
-      </div>
-    </SectionContainer>
+    <h2 class="text-2xl mb-8 mt-20">
+      🥸 Aprende sobre desarrollo web en mi blog.
+    </h2>
+    <div class="flex gap-5 flex-wrap">
+      {
+        sortedPosts.map((post) => (
+          <BlogPost key={post.url} url={post.url} data={post.frontmatter} />
+        ))
+      }
+    </div>
+    <div class="mt-16">
+      <SuscriptionNewsletter />
+    </div>
   </main>
 </Layout>

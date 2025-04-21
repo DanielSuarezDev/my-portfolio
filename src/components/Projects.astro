@@ -2,112 +2,136 @@
 import GitHub from "./icons/GitHub.astro"
 import NextJS from "./icons/NextJS.astro"
 import Tailwind from "./icons/Tailwind.astro"
-import Link from "./icons/Link.astro"
-import LinkButton from "./LinkButton.astro"
 import ReactNative from "./icons/ReactNative.astro"
 import Vite from "./icons/Vite.astro"
 
 const TAGS = {
   VITE: {
     name: "Vite",
-    class: "bg-black text-white",
+    class: "bg-white text-black border border-gray-200",
     icon: Vite,
   },
-  REACT_NATIVE : {
+  REACT_NATIVE: {
     name: "React Native",
-    class: "bg-[#61DAFB] text-black",
+    class: "bg-white text-black border border-gray-200",
     icon: ReactNative,
   },
   NEXT: {
     name: "Next.js",
-    class: "bg-black text-white",
+    class: "bg-white text-black border border-gray-200",
     icon: NextJS,
   },
   TAILWIND: {
     name: "Tailwind CSS",
-    class: "bg-[#003159] text-white",
+    class: "bg-white text-black border border-gray-200",
     icon: Tailwind,
   },
 }
 const PROJECTS = [
   {
-    title: "Jausme - Digitalizando tu propiedad horizontal",
+    title: "Pawfolio - Perfiles para mascotas",
     description:
-      "Plataforma para la gestión de comunidades de vecinos. Creada con Vite, React , Tailwind CSS y React Native para la app móvil, con más de 100K usuarios activos.",
-    link: "https://jausme.com/",
-    image: "/projects/jausme.png",
-    tags: [TAGS.TAILWIND, TAGS.REACT_NATIVE, TAGS.VITE],
+      "Plataforma para crear perfiles para mascotas, crear recordatorios de vacunas, crear historias de vida, etc.",
+    link: "https://apps.apple.com/co/app/pawfolio/id6511193179",
+    image: "/projects/pawfolio.png",
+    tags: [TAGS.REACT_NATIVE],
+    number: "01",
+    color: "text-[#73B1A1]",
+    borderColor: "border-[#73B1A1]",
+    bgColor: "bg-[#f8faf9]",
+    imageBg: "bg-[#73B1A1]"
   },
   {
-    title: "SpendWiser - Gasta Inteligentemente",
+    title: "Trazel - Digitaliza tu negocio",
     description:
-      "Plataforma gratuita para la gestión de finanzas a la hora de mercar. Con más de 500 usuarios activos. Creada con Next.js y Tailwind CSS.",
+      "Registra tus ventas, gastos, inventario, tienda virtual, clientes, proveedores, todo para tu negocio",
+    link: "https://trazel.app/",
+    image: "/projects/trazel.png",
+    tags: [TAGS.REACT_NATIVE, TAGS.NEXT],
+    number: "02",
+    color: "text-[#9747FF]",
+    borderColor: "border-[#9747FF]",
+    bgColor: "bg-[#f9f6fc]",
+    imageBg: "bg-[#9747FF]"
+  },
+  {
+    title: "SpendWiser - Gestiona tu dinero",
+    description:
+      "Gasta inteligentemente tu dinero al momento de mercar",
     link: "https://www.spendwiser.click/",
     image: "/projects/spendWiser.png",
-    tags: [TAGS.NEXT, TAGS.TAILWIND],
-    github: "https://github.com/DanielSuarezDev/SpendWiser",
-  },
-  {
-    title: "GoGo - Dale vida a tu vehículo",
-    description:
-      "App para la gestión de mantenimientos de vehículos donde ha impactado a mas de 600K taxistas y expandiendose a vehículos particulares. Creada con React Native y Tailwind CSS.",
-    link: "https://play.google.com/store/apps/details?id=com.gogo.beatlab&pli=1",
-    image: "/projects/gogo.png",
-    tags: [TAGS.VITE, TAGS.TAILWIND, TAGS.REACT_NATIVE],
+    tags: [TAGS.TAILWIND, TAGS.NEXT],
+    number: "03",
+    color: "text-[#333333]",
+    borderColor: "border-[#333333]",
+    bgColor: "bg-[#f8f8f8]",
+    imageBg: "bg-[#333333]"
   },
 ]
 ---
 
-<div class="flex flex-col gap-y-16">
-  {
-    PROJECTS.map(({ image, title, description, tags, link, github }) => (
-    <article class="flex flex-col space-x-0 space-y-8 group md:flex-row md:space-x-8 md:space-y-0">
-  <div class="w-full md:w-1/2">
-    <div class="relative flex flex-col items-center col-span-6 row-span-5 gap-8 transition duration-500 ease-in-out transform shadow-xl overflow-clip rounded-xl sm:rounded-xl md:group-hover:-translate-y-1 md:group-hover:shadow-2xl lg:border lg:border-gray-800 lg:hover:border-gray-700 lg:hover:bg-gray-800/50">
-      <img alt="image" class="object-cover object-top w-full h-56 transition duration-500 sm:h-full md:scale-110 md:group-hover:scale-105" loading="lazy" src={image} />
+<section class="w-full max-w-6xl mx-auto px-4 py-12">
+  <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-8">
+    <div>
+      <h2 class="text-3xl font-bold text-gray-800">✊ Mis Proyectos</h2>
+      <p class="text-gray-600">Algunos de los proyectos que he creado</p>
     </div>
+    <!-- <a href="#" class="mt-6 md:mt-0 flex items-center gap-2 text-[#9747FF] border border-[#9747FF] rounded-full px-4 py-2 hover:bg-[#f9f6fc] transition-colors">
+      Ver más <span class="inline-block transform rotate-45">↑</span>
+    </a> -->
   </div>
 
-  <div class="w-full md:w-1/2 md:max-w-lg">
-    <h3 class="text-2xl font-bold text-gray-800 dark:text-gray-100">
-      {title}
-    </h3>
-    <div class="flex flex-wrap mt-2">
-      <ul class="flex flex-row mb-2 gap-x-2">
-          {tags.map((tag) => (
-            <li>
-              <span
-                class={`flex gap-x-2 rounded-full text-xs ${tag.class} py-1 px-2 `}
-              >
-                <tag.icon class="size-4" />
-                {tag.name}
-              </span>
-            </li>
-          ))}
-        </ul>
-
-      <div class="mt-2 text-gray-700 dark:text-gray-400">{description}</div>
-      <footer class="flex items-end justify-start mt-4 gap-x-4">
-          {github && (
-            <LinkButton href={github}>
-              <GitHub class="size-6" />
-              Code
-              
-            </LinkButton>
-          )}
-          {link && (
-            <LinkButton href={link}>
-              <Link class="size-4" />
-              Preview
-            </LinkButton>
-          )}
-        </footer>
-    </div>
+  <div class="space-y-8">
+    {PROJECTS.map((project) => (
+      <div class={`${project.bgColor} border border-gray-100 rounded-xl p-8 overflow-hidden`}>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <div>
+            <div class={`text-5xl font-bold ${project.color} mb-4`}>
+              {project.number}
+            </div>
+            
+            <div class="flex flex-wrap gap-2 mb-4">
+              {project.tags.map((tag) => (
+                <span class={`flex items-center gap-1 rounded-full text-xs ${tag.class} py-1 px-2`}>
+                  <tag.icon class="size-4" />
+                  {tag.name}
+                </span>
+              ))}
+            </div>
+            
+            <h3 class={`text-2xl font-bold ${project.color} mb-3`}>{project.title}</h3>
+            <p class="text-gray-600 mb-6">{project.description}</p>
+            
+            {/* <div class="flex gap-2">
+              {project?.github && (
+                <a href={project.github} class="flex items-center gap-2 bg-black text-white px-4 py-2 rounded-full hover:bg-gray-800 transition-colors">
+                  <GitHub class="size-5" />
+                  Código
+                </a>
+              )}
+              <a href={project.link} target="_blank" class={`flex items-center gap-2 border ${project.borderColor} text-gray-700 px-4 py-2 rounded-full hover:bg-gray-50 transition-colors`}>
+                <span class="w-4 h-4 rounded-full bg-green-500 flex items-center justify-center">
+                  <span class="w-1.5 h-1.5 bg-white rounded-full"></span>
+                </span>
+                Ir al proyecto
+              </a>
+            </div> */}
+          </div>
+          
+          <div class="relative">
+            <div class={`${project.imageBg} p-3 rounded-xl overflow-hidden shadow-lg`}>
+              <div class="bg-gray-100 rounded-lg overflow-hidden">
+                <img 
+                  src={project.image || "/placeholder.svg"} 
+                  alt={project.title} 
+                  class="w-full h-full object-cover"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    ))}
   </div>
-</article>
-    ))
-  }
-</div>
-
-
+</section>
 

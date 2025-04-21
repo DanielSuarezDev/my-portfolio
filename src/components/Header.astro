@@ -4,14 +4,9 @@ import ThemeToggle from "./ThemeToggle.astro";
 
 const navItems = [
   {
-    title: "Experiencia",
-    label: "experiencia",
-    url: "/#experiencia",
-  },
-  {
-    title: "Proyectos",
-    label: "proyectos",
-    url: "/#proyectos",
+    title: "Inicio",
+    label: "inicio",
+    url: "/",
   },
   {
     title: "Sobre mí",
@@ -19,36 +14,142 @@ const navItems = [
     url: "/#sobre-mi",
   },
   {
+    title: "Mis Proyectos",
+    label: "mis-proyectos",
+    url: "/#proyectos",
+  },
+  {
+    title: "Experiencia Laboral",
+    label: "experiencia-laboral",
+    url: "/#experiencia",
+  },
+  {
     title: "Blog",
     label: "blog",
     url: "/blog",
   },
+  // {
+  //   title: "Tienda",
+  //   label: "tienda",
+  //   url: "/store",
+  //   hasDot: true,
+  // },
+  {
+    title: "Contacto",
+    label: "contacto",
+    url: "/#contacto",
+  },
 ];
 ---
 
-<header
-  class="fixed top-0 z-10 flex items-center justify-center w-full mx-auto mt-2"
->
-  <nav
-    class="nav-links flex px-3 text-sm font-medium rounded-full text-gray-600 dark:text-gray-200 justify-center items-center"
-  >
-    {
-      navItems.map((link) => (
+<header class="fixed top-0 z-10 w-full bg-[#f0e9ff] py-4">
+  <div class="container mx-auto flex items-center justify-between px-4">
+    <!-- Logo -->
+    <div class="flex items-center">
+      <a href="/" class="text-xl font-bold">
+        <span class="text-gray-800">&lt;/&gt;</span>
+        <span class="text-gray-900">Daniel</span>
+        <span class="text-purple-600">.</span>
+      </a>
+    </div>
+
+    <!-- Mobile Menu Button -->
+    <button id="mobile-menu-button" class="lg:hidden" aria-label="Toggle menu">
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-gray-800" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+      </svg>
+    </button>
+
+    <!-- Desktop Navigation -->
+    <nav class="hidden lg:flex items-center space-x-6">
+      {
+        navItems.map((link) => (
+          <a
+            class="relative text-sm font-medium text-gray-800 transition hover:text-purple-600"
+            aria-label={link.label}
+            href={link.url}
+          >
+            {link.title}
+            {/* @ts-ignore */}
+            {link?.hasDot && (
+              <span class="absolute -right-2 top-0 h-1.5 w-1.5 rounded-full bg-purple-600 blinking-dot"></span>
+            )}
+          </a>
+        ))
+      }
+    </nav>
+
+    <!-- CTA Button (hidden on mobile) -->
+    <a
+      href="/contact"
+      class="hidden lg:flex items-center rounded-full bg-purple-600 px-4 py-2 text-sm font-medium text-white transition hover:bg-purple-700"
+    >
+      Hablemos
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        class="ml-2 h-4 w-4"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke="currentColor"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="2"
+          d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"
+        />
+      </svg>
+    </a>
+  </div>
+
+  <!-- Mobile Menu (hidden by default) -->
+  <div id="mobile-menu" class="hidden lg:hidden bg-white shadow-lg absolute left-0 right-0 top-full">
+    <div class="container mx-auto px-4 py-3">
+      <nav class="flex flex-col space-y-4">
+        {
+          navItems.map((link) => (
+            <a
+              class="relative text-sm font-medium text-gray-800 transition hover:text-purple-600 py-2"
+              aria-label={link.label}
+              href={link.url}
+            >
+              {link.title}
+              {/* @ts-ignore */}
+              {link?.hasDot && (
+                <span class="absolute ml-2 top-2.5 h-1.5 w-1.5 rounded-full bg-purple-600 blinking-dot"></span>
+              )}
+            </a>
+          ))
+        }
+        <!-- CTA Button for mobile -->
         <a
-          class="relative block px-2 py-2 transition hover:text-yellow-500 dark:hover:text-yellow-400"
-          aria-label={link.label}
-          href={link.url}
+          href="/contact"
+          class="flex items-center justify-center rounded-full bg-purple-600 px-4 py-2 text-sm font-medium text-white transition hover:bg-purple-700 w-full"
         >
-          {link.title}
+          Let's Talk
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="ml-2 h-4 w-4"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"
+            />
+          </svg>
         </a>
-      ))
-    }
-    <!-- <ThemeIcon /> -->
-  </nav>
+      </nav>
+    </div>
+  </div>
 </header>
 
 <script>
   document.addEventListener("astro:page-load", () => {
+    // Section highlighting logic
     const sections = document.querySelectorAll("section");
     const navItems = document.querySelectorAll("header nav a");
 
@@ -57,9 +158,9 @@ const navItems = [
         if (entry.isIntersecting) {
           navItems.forEach((item) => {
             if (item.getAttribute("aria-label") == entry.target.id) {
-              item.classList.add("text-yellow-500");
+              item.classList.add("text-purple-600");
             } else {
-              item.classList.remove("text-yellow-500");
+              item.classList.remove("text-purple-600");
             }
           });
         }
@@ -76,6 +177,24 @@ const navItems = [
       observer.observe(section);
     });
 
+    // Mobile menu toggle
+    const mobileMenuButton = document.getElementById("mobile-menu-button");
+    const mobileMenu = document.getElementById("mobile-menu");
+    
+    if (mobileMenuButton && mobileMenu) {
+      mobileMenuButton.addEventListener("click", () => {
+        mobileMenu.classList.toggle("hidden");
+      });
+      
+      // Close menu when clicking on a link
+      const mobileLinks = mobileMenu.querySelectorAll("a");
+      mobileLinks.forEach((link) => {
+        link.addEventListener("click", () => {
+          mobileMenu.classList.add("hidden");
+        });
+      });
+    }
+
     // Cleanup function
     document.onvisibilitychange = () => {
       if (document.visibilityState === "hidden") {
@@ -90,15 +209,31 @@ const navItems = [
 </script>
 
 <style>
-  nav {
+  .blinking-dot {
+    animation: blink 1.5s infinite;
+  }
+
+  @keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0; }
+  }
+
+  /* Keep your existing animation for scroll effect */
+  /* nav {
     animation: nav-shadown 1s linear both;
     animation-timeline: scroll();
     animation-range: 0 100px;
-  }
+  } */
 
   @keyframes nav-shadown {
     to {
-      @apply shadow-lg ring-1 backdrop-blur dark:bg-gray-800/90 bg-white/50 ring-white/10;
+      @apply shadow-lg ring-1 backdrop-blur bg-white/50 dark:bg-gray-800/90 ring-white/10;
     }
   }
+  
+  /* Mobile menu transition */
+  #mobile-menu {
+    transition: all 0.3s ease-in-out;
+  }
 </style>
+
