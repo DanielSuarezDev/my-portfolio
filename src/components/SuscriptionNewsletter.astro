@@ -1,5 +1,5 @@
 ---
-// NewsletterSubscription.astro
+
 ---
 
 <div class="newsletter-container">
@@ -14,9 +14,9 @@
             <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/>
           </svg>
         </span>
-        <input type="email" placeholder="Ingresa tu email" class="email-input" />
+        <input type="email" placeholder="Ingresa tu email" class="email-input" id="emailInput" />
     </div>
-    <button class="subscribe-button">Suscríbete</button>
+    <button class="subscribe-button" onclick="handleSubmit(document.getElementById('emailInput').value)">Suscríbete</button>
   </div>
 
     <div class="metrics-container">
@@ -31,6 +31,55 @@
       </div>
     </div>
   </div>
+  
+  <script>
+    //@ts-ignore
+    import confetti from 'canvas-confetti';
+
+    const showConfetti = () => {
+      confetti({
+        particleCount: 100,
+        spread: 70,
+        origin: { y: 0.6 }
+      });
+    };
+
+    // Make handleSubmit available globally
+    //@ts-ignore
+    window.handleSubmit = async (email: string) => {
+      if (!email) {
+        alert('Por favor, ingresa un email válido');
+        return;
+      }
+      try {
+        const response = await fetch('/api/subscribe', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ email }),
+        });
+
+        if (!response.ok) {
+          throw new Error('Error en la respuesta del servidor');
+        }
+
+        const data = await response.json();
+        if (data.success) {
+          showConfetti();
+          const emailInput = document.getElementById('emailInput') as HTMLInputElement;
+          if (emailInput) {
+            emailInput.value = '';
+          }
+        } else {
+          throw new Error(data.error || 'Error al procesar la suscripción');
+        }
+      } catch (error) {
+        console.error('Error:', error);
+        alert('Hubo un error al procesar tu suscripción. Por favor, intenta de nuevo.');
+      }
+    };
+  </script>
   
   <style>
     .newsletter-container {
