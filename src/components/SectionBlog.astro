@@ -9,6 +9,7 @@ interface BlogPost {
   title: string;
   excerpt: string;
   date: string;
+  originalDate: Date;
   readTime: string;
   tags: string[];
   image: {
@@ -30,15 +31,14 @@ const blogPosts: BlogPost[] = posts.map((post) => {
     alt: "Imagen por defecto",
   };
 
+  const originalDate = new Date(post.frontmatter.pubDate || new Date());
+
   return {
     id: post.url?.split("/").pop()?.replace(".md", "") || "",
     title: post.frontmatter.title || "Sin título",
     excerpt: post.frontmatter.description || "Descripción no disponible",
-    date: format(
-      new Date(post.frontmatter.pubDate || new Date()),
-      "MMM d, yyyy",
-      { locale: es }
-    ),
+    date: format(originalDate, "MMM d, yyyy", { locale: es }),
+    originalDate: originalDate,
     readTime: `${Math.ceil(Number(post.frontmatter.readTime) || 5)} minutos de lectura`,
     tags: post.frontmatter.tags || [],
     image:
@@ -50,12 +50,12 @@ const blogPosts: BlogPost[] = posts.map((post) => {
   };
 });
 
-// Ordenar posts por fecha (más recientes primero)
+// Ordenar posts por fecha original (más recientes primero)
 blogPosts.sort(
-  (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
+  (a, b) => b.originalDate.getTime() - a.originalDate.getTime()
 );
 
-const featuredPost = blogPosts.find((post) => post.featured) || blogPosts[0];
+const featuredPost = blogPosts[0]; // Siempre el más reciente (ya está ordenado por fecha)
 const regularPosts = blogPosts.filter((post) => post !== featuredPost);
 ---
 
