@@ -6,6 +6,7 @@ import { SEO } from "astro-seo";
 import Header from "../components/Header.astro"
 import Footer from "../components/Footer.astro"
 import { ViewTransitions } from "astro:transitions"
+import ThemeToggle from "../components/ThemeToggle.astro"
 
 interface Props {
   title: string
@@ -49,6 +50,7 @@ const { description, title, image } = Astro.props
     <meta name="generator" content={Astro.generator} />
     <title>{title}</title>
     <ViewTransitions />
+    <ThemeToggle />
   </head>
   
   <!-- El resto de tu layout o página continúa aquí -->
@@ -169,5 +171,11 @@ const { description, title, image } = Astro.props
     </style>
   </body>
 
-  
+  <script>
+    import { analytics } from '../lib/firebase';
+
+    if (analytics) {
+      console.log('Analytics enabled');
+    }
+  </script>
 </html>

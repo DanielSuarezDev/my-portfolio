@@ -36,9 +36,11 @@ const { frontmatter } = Astro.props;
       }
     </div>
 
-    <slot />
+    <article class="prose lg:prose-xl dark:prose-invert dark:prose-h1:text-white dark:prose-h2:text-white dark:prose-h3:text-white dark:prose-h4:text-white dark:prose-a:text-blue-400 prose-a:text-blue-600 prose-h1:text-2xl prose-h2:text-xl prose-h3:text-lg">
+      <slot />
+    </article>
 
-    <div class="">
+    <div class="mt-8">
       <p class="text-xl font-bold my-4">Sígueme</p>
       <div class="flex">
         <a
